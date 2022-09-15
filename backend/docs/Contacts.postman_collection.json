@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "eacefe01-2034-42c7-b03b-999c89d5fe1a",
+		"name": "Contacts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List of contacts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_BASE}}/passenger",
+					"host": [
+						"{{API_BASE}}"
+					],
+					"path": [
+						"passenger"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List of contacts with limit",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_BASE}}/passenger?limit=10&skip=0",
+					"host": [
+						"{{API_BASE}}"
+					],
+					"path": [
+						"passenger"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "skip",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single contact",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_BASE}}/passenger/::pasenger_id",
+					"host": [
+						"{{API_BASE}}"
+					],
+					"path": [
+						"passenger",
+						"::pasenger_id"
+					],
+					"variable": [
+						{
+							"key": ":pasenger_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search contacts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_BASE}}/passenger/?where={\"first_name\":{\"contains\":\"Ab\"},\"last_name\":{\"contains\":\"a\"}}&sort=createdAt DESC&limit=30",
+					"host": [
+						"{{API_BASE}}"
+					],
+					"path": [
+						"passenger",
+						""
+					],
+					"query": [
+						{
+							"key": "where",
+							"value": "{\"first_name\":{\"contains\":\"Ab\"},\"last_name\":{\"contains\":\"a\"}}"
+						},
+						{
+							"key": "sort",
+							"value": "createdAt DESC"
+						},
+						{
+							"key": "limit",
+							"value": "30"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_BASE",
+			"value": "http://localhost:1337"
+		}
+	]
+}
