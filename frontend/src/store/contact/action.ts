@@ -45,6 +45,26 @@ export function getContactById(id: string): Dispatcher {
 		}
 	};
 }
+
+export function searchContact(params: string): Dispatcher {
+    return async (dispatch) => {
+		try {
+			dispatch({ type: CONTACT_REQUEST_INPROGRESS });
+
+			const response = await RequestInstance.get<ContactInterface>(
+				`/passenger/?where={${params}}&sort=createdAt DESC&limit=30`,
+			);
+
+			dispatch({
+				type: CONTACT_FETCHED,
+				payload: { data: response.data },
+			});
+			return Promise.resolve();
+		} catch (error) {
+			return handleApplicationFailure(dispatch, error);
+		}
+	};
+}
 function handleApplicationFailure(dispatch: any, error: any) {
 	const errorCode = error.response?.data?.status;
 	const errorMessage = 'خطا';
