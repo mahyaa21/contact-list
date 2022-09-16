@@ -1,9 +1,14 @@
-import './App.css';
-import MainLayout from './components/layout/mainLayout/mainLayout';
+import { useEffect } from "react";
+import { useDispatch, Provider } from "react-redux";
+import { getAllContact } from "./store/contact/action";
+import MainLayout from "./components/layout/mainLayout/mainLayout";
+
 function App() {
-  return (
-    <MainLayout>snapp contact list</MainLayout>
-  );
+	const dispatch = useDispatch<any>();
+	useEffect(()=>{
+	  dispatch(getAllContact());
+	},[]);
+	return <MainLayout>snapp contact list</MainLayout>;
 }
 
 export default App;

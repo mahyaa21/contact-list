@@ -2,8 +2,6 @@ import { Dispatcher } from "../../interfaces/dispatcher.interface";
 import {
     CONTACT_REQUEST_INPROGRESS,
     CONTACT_FETCHED,
-    CONTACT_CREATED,
-    CONTACT_UPDATED,
     CONTACT_REQUEST_FAILURE
 } from '../constants';
 import { RequestInstance } from "../request";
