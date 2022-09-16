@@ -5,13 +5,13 @@ import {
     CONTACT_REQUEST_FAILURE
 } from '../constants';
 import { RequestInstance } from "../request";
-import { ContactInterface } from "../../interfaces/contact.interface";
+import { ContactInterface, ContactListInterface } from "../../interfaces/contact.interface";
 export function getAllContact(): Dispatcher {
     return async (dispatch) => {
 		try {
 			dispatch({ type: CONTACT_REQUEST_INPROGRESS });
 
-			const response = await RequestInstance.get<Array<ContactInterface>>(
+			const response = await RequestInstance.get<ContactListInterface>(
 				`/passenger`,
 			);
 
@@ -31,7 +31,7 @@ export function getContactById(id: string): Dispatcher {
 		try {
 			dispatch({ type: CONTACT_REQUEST_INPROGRESS });
 
-			const response = await RequestInstance.get<Array<ContactInterface>>(
+			const response = await RequestInstance.get<ContactInterface>(
 				`/passenger/${id}`,
 			);
 

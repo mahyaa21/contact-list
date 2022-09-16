@@ -8,13 +8,16 @@ import {
 	CLEAR
 } from "../constants";
 import { ReducerInitialState } from "../../interfaces/reducerInitialState.interface";
-import { ContactInterface } from "../../interfaces/contact.interface";
+import { ContactInterface, ContactListInterface } from "../../interfaces/contact.interface";
 const initialState: ReducerInitialState<{
-	list: Array<ContactInterface >;
+	list: ContactListInterface;
 }> = {
 	loading: false,
 	data: {
-		list: [],
+		list: {
+			meta: null,
+			items: []
+		},
 	},
 	error: false,
 };
