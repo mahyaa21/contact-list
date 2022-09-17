@@ -4,6 +4,7 @@ import { RootState } from "../../store/rootReducer";
 import { useMemo } from "react";
 import SearchBox from "../searchBox/SearchBox";
 const ContactList = ({}) => {
+    const recentContact = localStorage.getItem("recent");
 	const navigate = useNavigate();
 	const contacts = useSelector(
 		({ contacts }: RootState) => contacts?.data.list?.items
@@ -16,10 +17,19 @@ const ContactList = ({}) => {
 			</div>
 		));
 	}, [contacts]);
+	const renderRecentContact = useMemo(()=>{
+ 	    const recentContactIds = recentContact?.split(",");
+         return recentContactIds?.map((item)=>{
+            return <div>{contacts.find(i => i.id === Number(item))?.first_name}{" "}{contacts.find(i => i.id === Number(item))?.last_name}</div>;
+         })
+	}, [recentContact])
 	return (
 		<div>
 			<SearchBox />
-			{renderContactList}
+			<div>recent</div>
+			<div>{renderRecentContact}</div>
+			<br/>
+			<div>{renderContactList}</div>
 		</div>
 	);
 };
