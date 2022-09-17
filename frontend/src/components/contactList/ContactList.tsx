@@ -31,7 +31,7 @@ const ContactList = ({}) => {
 	const renderRecentContact = useMemo(() => {
 		return recentContact?.map((item) => {
 			return (
-				<div>
+				<div onClick={() => gotoContactDetail(Number(item))}>
 					{contacts.find((i) => i.id === Number(item))?.first_name}{" "}
 					{contacts.find((i) => i.id === Number(item))?.last_name}
 				</div>
