@@ -28,7 +28,7 @@ const ContactList = ({}) => {
 			<SearchBox />
 			<div>recent</div>
 			<div>{renderRecentContact}</div>
-			<br/>
+			<hr/>
 			<div>{renderContactList}</div>
 		</div>
 	);
