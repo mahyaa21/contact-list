@@ -2,6 +2,7 @@ import { Dispatcher } from "../../interfaces/dispatcher.interface";
 import {
     CONTACT_REQUEST_INPROGRESS,
     CONTACT_FETCHED,
+    SINGLE_CONTACT_FETCHED,
     CONTACT_REQUEST_FAILURE
 } from '../constants';
 import { RequestInstance } from "../request";
@@ -12,7 +13,7 @@ export function getAllContact(): Dispatcher {
 			dispatch({ type: CONTACT_REQUEST_INPROGRESS });
 
 			const response = await RequestInstance.get<ContactListInterface>(
-				`/passenger`,
+				`/passenger?limit=100&skip=0`,
 			);
 
 			dispatch({
@@ -36,7 +37,7 @@ export function getContactById(id: string): Dispatcher {
 			);
 
 			dispatch({
-				type: CONTACT_FETCHED,
+				type: SINGLE_CONTACT_FETCHED,
 				payload: { data: response.data },
 			});
 			return Promise.resolve();
