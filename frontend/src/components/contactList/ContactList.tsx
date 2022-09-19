@@ -20,33 +20,56 @@ const ContactList = ({}) => {
 				dispatch(getContactById(id));
 			}
 		});
-	}, [contacts, recentContact]);
+	}, []);
 	const gotoContactDetail = (id: number) => navigate(`/${id}`);
 	const renderContactList = useMemo(() => {
 		return contacts.map((item) => (
-			<div className={style.contact} key={item.id} onClick={() => gotoContactDetail(item.id)}>
-			<div className={style.avatarItem}><img className={style.avatar} src={item.avatar}/></div>
-				<span>{item.first_name} {item.last_name}</span>
+			<div
+				className={style.contact}
+				key={item.id}
+				onClick={() => gotoContactDetail(item.id)}
+			>
+				<div className={style.avatarItem}>
+					<img className={style.avatar} src={item.avatar} />
+				</div>
+				<span>
+					{item.first_name} {item.last_name}
+				</span>
 			</div>
 		));
-	}, [contacts]);
+	}, [contacts, contacts.length]);
 	const renderRecentContact = useMemo(() => {
 		return recentContact?.map((item) => {
 			return (
-				<div onClick={() => gotoContactDetail(Number(item))}>
-					{contacts.find((i) => i.id === Number(item))?.first_name}{" "}
-					{contacts.find((i) => i.id === Number(item))?.last_name}
+				<div
+					className={style.contact}
+					onClick={() => gotoContactDetail(Number(item))}
+				>
+					<div className={style.avatarItem}>
+						<img
+							className={style.avatar}
+							src={contacts.find((i) => i.id === Number(item))?.avatar}
+						/>
+					</div>
+					<span>
+						{contacts.find((i) => i.id === Number(item))?.first_name}{" "}
+						{contacts.find((i) => i.id === Number(item))?.last_name}
+					</span>
 				</div>
 			);
 		});
 	}, [recentContact]);
 	return (
-		<div>
-			<SearchBox />
-			<div>recent</div>
-			<div>{renderRecentContact}</div>
-			<hr />
-			<div>{renderContactList}</div>
+		<div className={style.contactListContainer}>
+			<div className={style.contactListWrapper}>
+				<div className={style.title}>Contact List</div>
+				<SearchBox />
+				<div className={style.sectionTitle}>recent</div>
+				<div>{renderRecentContact}</div>
+				<div className={style.separator} />
+				<div>{renderContactList}</div>
+			</div>
+			<div className={style.mainPageImage} />
 		</div>
 	);
 };

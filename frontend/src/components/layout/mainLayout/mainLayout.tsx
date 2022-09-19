@@ -9,10 +9,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
 	return (
 		<div className={styles.container}>
-			{/* <Header/> */}
-			<div className={styles.title}>Contact List</div>
 			<div className={styles.childrenWrapper}>{children}</div>
-			{/* <CreateNewQuestionModal /> */}
 		</div>
 	);
 }
