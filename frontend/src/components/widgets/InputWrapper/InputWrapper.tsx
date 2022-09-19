@@ -19,6 +19,7 @@ interface InputWrapperInterface {
   isRequired?: boolean;
   errorMessage?: string;
   onFocus?: () => void;
+  elemBeforeInput?: any;
 }
 
 function InputWrapper({
@@ -37,6 +38,7 @@ function InputWrapper({
   isRequired,
   errorMessage,
   onFocus,
+  elemBeforeInput
 }: InputWrapperInterface) {
   return (
     <div className={classes(style.inputContainer, className || '')}>
@@ -57,6 +59,7 @@ function InputWrapper({
         aria-label="default text field"
         value={readonly ? '' : value}
         placeholder={placeholder}
+        elemBeforeInput={elemBeforeInput}
         onChange={onChange}
         onBlur={onBlur}
         className={style.Input}

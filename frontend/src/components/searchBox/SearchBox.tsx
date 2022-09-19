@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { InputWrapper } from "../widgets";
 import { searchContact } from "../../store/contact/action";
 import { throttle } from "lodash";
+import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search'
+import style from "./SearchBox.module.scss";
 const SearchBox = () => {
 	const [searchContent, setSearchContent] = useState<string>();
 	const dispatch = useDispatch();
@@ -21,8 +23,15 @@ const SearchBox = () => {
 	}, 1000);
 
 	return (
-		<div>
-			<InputWrapper value={searchContent} onChange={searchContentOnchange} />
+		<div className={style.searchBoxContainer}>
+			<InputWrapper
+				placeholder="search"
+				elemBeforeInput={
+                    <EditorSearchIcon size="small" label="search" />
+                  }
+				value={searchContent}
+				onChange={searchContentOnchange}
+			/>
 		</div>
 	);
 };
