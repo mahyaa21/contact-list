@@ -1,0 +1,114 @@
+.contactDetailContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: blueviolet;
+    height: 100%;
+}
+
+.contactDetailWrapper {
+    display: flex;
+    max-width: 400px;
+    background-color: white;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 8px 20px 30px #49494996;
+    width: 100%;
+    max-width: 400px;
+    margin: 0px 24px 0px;
+    border-radius: 20px;
+    padding: 24px;
+
+    .fullName {
+        font-size: 20px;
+        color: #202020;
+        margin: 75px 0px 8px;
+        font-weight: 700;
+    }
+
+    .phone {
+        font-size: 16px;
+        font-weight: 600;
+        color: #9c9c9c;
+        margin-bottom: 37px;
+    }
+
+    .actionItem {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0px 12px;
+        cursor: pointer;
+
+        svg g,
+        path {
+            fill: white;
+        }
+    }
+
+    .comment {
+        @extend.actionItem;
+        background-color: #038ffd;
+    }
+
+    .email {
+        @extend.actionItem;
+        background-color: #695cee;
+    }
+
+    .dial {
+        @extend.actionItem;
+        background-color: #52d575;
+    }
+
+    .actionWrapper {
+        display: flex;
+    }
+
+    .detailInfo {
+        .sectionContainer {
+            margin: 12px 0px;
+
+            .title {
+                font-weight: 600;
+                font-size: 16px;
+                color: rgb(162, 162, 162);
+            }
+
+            .item {
+                font-size: 14px;
+                margin-top: 4px;
+                color: #202020;
+            }
+        }
+    }
+}
+
+.avatarItem {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid white;
+    overflow: hidden;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -75px;
+
+    .avatar {
+        width: 100%;
+        height: 100%;
+        background-color: rgb(245, 183, 77);
+    }
+
+    span[aria-label="user"] {
+        color: #ff9121 !important;
+    }
+}
