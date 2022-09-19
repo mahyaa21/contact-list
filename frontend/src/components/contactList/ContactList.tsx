@@ -4,6 +4,7 @@ import { RootState } from "../../store/rootReducer";
 import { useEffect, useMemo } from "react";
 import SearchBox from "../searchBox/SearchBox";
 import { getContactById } from "../../store/contact/action";
+import UserAvatarCircleIcon from "@atlaskit/icon/glyph/user-avatar-circle";
 import style from "./ContactList.module.scss";
 const ContactList = ({}) => {
 	const recentContact = localStorage.getItem("recent")?.split(",");
@@ -30,7 +31,11 @@ const ContactList = ({}) => {
 				onClick={() => gotoContactDetail(item.id)}
 			>
 				<div className={style.avatarItem}>
-					<img className={style.avatar} src={item.avatar} />
+					{item?.avatar ? (
+						<img className={style.avatar} src={item.avatar} />
+					) : (
+						<UserAvatarCircleIcon label="user" size="xlarge" />
+					)}
 				</div>
 				<span>
 					{item.first_name} {item.last_name}
@@ -59,6 +64,7 @@ const ContactList = ({}) => {
 			);
 		});
 	}, [recentContact]);
+
 	return (
 		<div className={style.contactListContainer}>
 			<div className={style.contactListWrapper}>
