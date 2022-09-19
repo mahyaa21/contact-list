@@ -111,4 +111,9 @@
     span[aria-label="user"] {
         color: #ff9121 !important;
     }
+    
+    svg[role="presentation"]{
+        width: 180px !important;
+        height: 180px !important;
+    }
 }

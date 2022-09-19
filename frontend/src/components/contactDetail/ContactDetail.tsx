@@ -53,7 +53,7 @@ const ContactDetail = () => {
 					{selectedContact?.avatar ? (
 						<img className={style.avatar} src={selectedContact.avatar} />
 					) : (
-						<UserAvatarCircleIcon label="user" size="xlarge" />
+						<UserAvatarCircleIcon label="user" />
 					)}
 				</div>
 				<span className={style.fullName}>{selectedContact?.first_name}{" "}{selectedContact?.last_name}</span>
