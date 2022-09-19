@@ -4,6 +4,7 @@ import { RootState } from "../../store/rootReducer";
 import { useEffect, useMemo } from "react";
 import SearchBox from "../searchBox/SearchBox";
 import { getContactById } from "../../store/contact/action";
+import style from "./ContactList.module.scss";
 const ContactList = ({}) => {
 	const recentContact = localStorage.getItem("recent")?.split(",");
 	const navigate = useNavigate();
@@ -23,8 +24,9 @@ const ContactList = ({}) => {
 	const gotoContactDetail = (id: number) => navigate(`/${id}`);
 	const renderContactList = useMemo(() => {
 		return contacts.map((item) => (
-			<div key={item.id} onClick={() => gotoContactDetail(item.id)}>
-				{item.first_name} {item.last_name}
+			<div className={style.contact} key={item.id} onClick={() => gotoContactDetail(item.id)}>
+			<div className={style.avatarItem}><img className={style.avatar} src={item.avatar}/></div>
+				<span>{item.first_name} {item.last_name}</span>
 			</div>
 		));
 	}, [contacts]);
