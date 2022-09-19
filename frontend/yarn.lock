@@ -69,6 +69,16 @@
     "@babel/runtime" "^7.0.0"
     bind-event-listener "^2.1.1"
 
+"@atlaskit/icon@^21.10.7":
+  version "21.10.7"
+  resolved "https://registry.yarnpkg.com/@atlaskit/icon/-/icon-21.10.7.tgz#6395b8a795173f5014cf85365d2b82a7e978af31"
+  integrity sha512-S1e/V1p11ULNpo3XfDXN1tP6HyxnTyHUQxU1UlEAtFQ933dGIRRur46fZiVKOpMZ9cKjlPIBjf7EBkfaQRtNQw==
+  dependencies:
+    "@atlaskit/theme" "^12.1.0"
+    "@atlaskit/tokens" "^0.10.0"
+    "@babel/runtime" "^7.0.0"
+    "@emotion/core" "^10.0.9"
+
 "@atlaskit/spinner@^15.1.0":
   version "15.1.15"
   resolved "https://registry.yarnpkg.com/@atlaskit/spinner/-/spinner-15.1.15.tgz#62150611c6ec018001ba775736522a7601ce3156"
