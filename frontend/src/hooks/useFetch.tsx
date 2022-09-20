@@ -21,8 +21,10 @@ function useFetch({ query, page }: UseFetchInterface) {
             let searchParams: string;
             if (Number(query)) {
                 searchParams = `\"phone\":{\"contains\":\"${query}\"}`;
+            } else if(query) {
+                searchParams = `\"first_name\":{\"contains\":\"${query}\"},\"last_name\":{\"contains\":\"${query}\"}`;
             } else {
-                searchParams = `\"first_name\":{\"contains\":\"${query}\"}`;
+                searchParams = ""
             }
 			await dispatch(searchContact(searchParams, page * 10));
 		},
