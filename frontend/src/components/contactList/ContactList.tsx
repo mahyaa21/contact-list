@@ -55,7 +55,7 @@ const ContactList = ({}) => {
 				<div>
 					<div className={style.name}>
 						{item.first_name} {item.last_name}{" "}
-						<span className={style.phoneNumber}>({item?.company})</span>
+						{item?.company ? <span className={style.phoneNumber}>({item?.company})</span> : ""}
 					</div>
 					<div className={style.phoneNumber}>{item.phone}</div>
 				</div>
