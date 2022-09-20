@@ -1,33 +1,55 @@
 import { useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/rootReducer";
 import style from "./ContactDetail.module.scss";
 import UserAvatarCircleIcon from "@atlaskit/icon/glyph/user-avatar-circle";
 import CommentIcon from "@atlaskit/icon/glyph/comment";
 import EmailIcon from "@atlaskit/icon/glyph/email";
 import HipchatDialOutIcon from "@atlaskit/icon/glyph/hipchat/dial-out";
-import Utils from "../../lib/utils";
+import { getContactById } from "../../store/contact/action";
 const ContactDetail = () => {
 	const params = useParams();
+	const dispatch = useDispatch<any>();
 	const { id } = params;
 	const contacts = useSelector(
 		({ contacts }: RootState) => contacts?.data.list?.items
 	);
 	const selectedContact = useMemo(
-		() => contacts.find((user) => user.id === Number(id)),
+		() => contacts.find((user) => user?.id === Number(id)),
 		[contacts, id]
 	);
+	
+	useEffect(()=>{
+		if(!selectedContact && id){
+			dispatch(getContactById(id))
+		}
+	}, [id])
+
+	function uniqueArray(array: Array<any>) {
+		const result = [];
+		const map = new Map();
+		for (const item of array) {
+			if (!map.has(item?.id)) {
+				map.set(item?.id, true); // set any value to Map
+				result.push({
+					...item,
+				});
+			}
+		}
+		return result;
+	}
 
 	useEffect(() => {
-		const recentContacts = localStorage.getItem("recent") || "";
-		const recentContactIds = recentContacts?.split(",");
 		if (id) {
-			let normalArray = Utils.normalizeCashedArray(recentContactIds, id, 4);
-			normalArray && localStorage.setItem("recent", normalArray.join(","));
+			let recentUsers: Array<any> = JSON.parse(
+				localStorage.getItem("recent") || "[]"
+			);
+			recentUsers = uniqueArray([...recentUsers, selectedContact]).slice(-4);
+			localStorage.setItem("recent", JSON.stringify([...recentUsers]));
 		}
 	}, [id]);
-	
+
 	const sectionGenerator = (title: string, item: any) => (
 		<div className={style.sectionContainer}>
 			<div className={style.title}>{title}</div>

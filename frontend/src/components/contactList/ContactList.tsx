@@ -1,28 +1,21 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store/rootReducer";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import SearchBox from "../searchBox/SearchBox";
 import { getContactById } from "../../store/contact/action";
 import UserAvatarCircleIcon from "@atlaskit/icon/glyph/user-avatar-circle";
 import style from "./ContactList.module.scss";
 const ContactList = ({}) => {
-	const recentContact = localStorage.getItem("recent")?.split(",");
 	const navigate = useNavigate();
-	const dispatch = useDispatch<any>();
-	const contacts = useSelector(
-		({ contacts }: RootState) => contacts?.data.list?.items
-	);
-	useEffect(() => {
-		const currentContact = contacts.map((item) => item.id);
-		console.log(currentContact, recentContact);
-		recentContact?.forEach((id) => {
-			if (!currentContact.includes(Number(id))) {
-				dispatch(getContactById(id));
-			}
-		});
-	}, []);
+	const {
+		list: { items: contacts },
+	} = useSelector(({ contacts }: RootState) => contacts?.data);
 	const gotoContactDetail = (id: number) => navigate(`/${id}`);
+	const recentContact = useMemo(
+		() => JSON.parse(localStorage.getItem("recent") || "[]"),
+		[localStorage.getItem("recent")]
+	);
 	const renderContactList = useMemo(() => {
 		return contacts.map((item) => (
 			<div
@@ -44,21 +37,21 @@ const ContactList = ({}) => {
 		));
 	}, [contacts, contacts.length]);
 	const renderRecentContact = useMemo(() => {
-		return recentContact?.map((item) => {
+		return recentContact?.map((item: any) => {
 			return (
 				<div
 					className={style.contact}
-					onClick={() => gotoContactDetail(Number(item))}
+					onClick={() => gotoContactDetail(Number(item.id))}
 				>
 					<div className={style.avatarItem}>
-						<img
-							className={style.avatar}
-							src={contacts.find((i) => i.id === Number(item))?.avatar}
-						/>
+						{item?.avatar ? (
+							<img className={style.avatar} src={item.avatar} />
+						) : (
+							<UserAvatarCircleIcon label="user" size="xlarge" />
+						)}
 					</div>
 					<span>
-						{contacts.find((i) => i.id === Number(item))?.first_name}{" "}
-						{contacts.find((i) => i.id === Number(item))?.last_name}
+						{item?.first_name} {item?.last_name}
 					</span>
 				</div>
 			);
@@ -70,9 +63,13 @@ const ContactList = ({}) => {
 			<div className={style.contactListWrapper}>
 				<div className={style.title}>Contact List</div>
 				<SearchBox />
-				<div className={style.sectionTitle}>recent</div>
-				<div>{renderRecentContact}</div>
-				<div className={style.separator} />
+				{recentContact?.length && (
+					<>
+						<div className={style.sectionTitle}>recent</div>
+						<div>{renderRecentContact}</div>
+						<div className={style.separator} />
+					</>
+				)}
 				<div>{renderContactList}</div>
 			</div>
 			<div className={style.mainPageImage} />

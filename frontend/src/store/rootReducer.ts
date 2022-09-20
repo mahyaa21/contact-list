@@ -6,7 +6,6 @@ import { ReducerInitialState } from "../interfaces/reducerInitialState.interface
 export interface RootState {
 	contacts: ReducerInitialState<{
         list: ContactListInterface;
-        recentContact: Array<ContactInterface>
     }>;
 }
 
