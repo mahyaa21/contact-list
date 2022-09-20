@@ -8,7 +8,7 @@ class Utils {
 		const map = new Map();
 		for (const item of array) {
 			if (!map.has(item?.id) && item && Object.keys(item)?.length) {
-				map.set(item?.id, true); // set any value to Map
+				map.set(item?.id, true);
 				result.push({
 					...item,
 				});
