@@ -1,7 +1,5 @@
 import { useMemo, useState, useRef, useEffect, useCallback } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { RootState } from "../../store/rootReducer";
 import SearchBox from "../searchBox/SearchBox";
 import useFetch from "../../hooks/useFetch";
 import UserAvatarCircleIcon from "@atlaskit/icon/glyph/user-avatar-circle";

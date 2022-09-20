@@ -18,7 +18,13 @@ function useFetch({ query, page }: UseFetchInterface) {
 	} = useSelector(({ contacts }: RootState) => contacts);
 	const sendQuery = useCallback(
 		async (query: string) => {
-			await dispatch(searchContact(query, page * 10));
+            let searchParams: string;
+            if (Number(query)) {
+                searchParams = `\"phone\":{\"contains\":\"${query}\"}`;
+            } else {
+                searchParams = `\"first_name\":{\"contains\":\"${query}\"}`;
+            }
+			await dispatch(searchContact(searchParams, page * 10));
 		},
 		[query, page]
 	);
