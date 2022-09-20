@@ -5,6 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import UserAvatarCircleIcon from "@atlaskit/icon/glyph/user-avatar-circle";
 import style from "./ContactList.module.scss";
 import { ContactInterface } from "../../interfaces/contact.interface";
+import contactBackgroundImage from '../../assets/images/contactImage.svg';
 const ContactList = ({}) => {
 	const [query, setQuery] = useState("");
 	const navigate = useNavigate();
@@ -76,7 +77,9 @@ const ContactList = ({}) => {
 				{loading && <p>Loading...</p>}
 				<div ref={loader} />
 			</div>
-			<div className={style.mainPageImage} />
+			<div className={style.mainPageImage} >
+			    <img src={contactBackgroundImage}/>
+			</div>
 		</div>
 	);
 };
