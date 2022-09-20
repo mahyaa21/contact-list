@@ -1,16 +1,36 @@
+import { useMemo, useState, useRef, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store/rootReducer";
-import { useMemo } from "react";
 import SearchBox from "../searchBox/SearchBox";
+import useFetch from "../../hooks/useFetch";
 import UserAvatarCircleIcon from "@atlaskit/icon/glyph/user-avatar-circle";
 import style from "./ContactList.module.scss";
 import { ContactInterface } from "../../interfaces/contact.interface";
 const ContactList = ({}) => {
+    const [query, setQuery] = useState("");
 	const navigate = useNavigate();
-	const {
-		list: { items: contacts },
-	} = useSelector(({ contacts }: RootState) => contacts?.data);
+	
+    const [page, setPage] = useState(1);
+    const { loading, error, contacts } = useFetch({ query, page });
+    const loader = useRef(null);
+  
+    const handleObserver = useCallback((entries: Array<any>) => {
+      const target = entries[0];
+      if (target.isIntersecting) {
+        setPage((prev) => prev + 1);
+      }
+    }, []);
+  
+    useEffect(() => {
+      const option = {
+        root: null,
+        rootMargin: "20px",
+        threshold: 0
+      };
+      const observer = new IntersectionObserver(handleObserver, option);
+      if (loader.current) observer.observe(loader.current);
+    }, [handleObserver]);
 
 	const gotoContactDetail = (id: number) => navigate(`/${id}`);
 
@@ -43,7 +63,7 @@ const ContactList = ({}) => {
 		<div className={style.contactListContainer}>
 			<div className={style.contactListWrapper}>
 				<div className={style.title}>Contact List</div>
-				<SearchBox />
+				<SearchBox onChange={(q) => setQuery(q)}/>
 				{!!recentContact?.length && (
 					<>
 						<div className={style.sectionTitle}>recent</div>
@@ -52,6 +72,8 @@ const ContactList = ({}) => {
 					</>
 				)}
 				<div>{renderContact(contacts)}</div>
+				{loading && <p>Loading...</p>}
+				<div ref={loader} />
 			</div>
 			<div className={style.mainPageImage} />
 		</div>

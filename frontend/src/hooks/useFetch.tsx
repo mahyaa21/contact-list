@@ -1,0 +1,33 @@
+import { useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { searchContact } from "../store/contact/action";
+import { RootState } from "../store/rootReducer";
+
+interface UseFetchInterface {
+	query: string;
+	page: number;
+}
+function useFetch({ query, page }: UseFetchInterface) {
+	const dispatch = useDispatch<any>();
+	const {
+		loading,
+		error,
+		data: {
+			list: { items: contacts },
+		},
+	} = useSelector(({ contacts }: RootState) => contacts);
+	const sendQuery = useCallback(
+		async (query: string) => {
+			await dispatch(searchContact(query, page * 10));
+		},
+		[query, page]
+	);
+
+	useEffect(() => {
+		sendQuery(query);
+	}, [query, sendQuery, page]);
+
+	return { loading, error, contacts };
+}
+
+export default useFetch;
