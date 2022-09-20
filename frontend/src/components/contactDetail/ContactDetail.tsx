@@ -88,6 +88,8 @@ const ContactDetail = () => {
 					{sectionGenerator("Email", selectedContact?.email)}
 					{sectionGenerator("Address", selectedContact?.address)}
 					{sectionGenerator("Telegram", selectedContact?.telegram)}
+					{sectionGenerator("Gender", selectedContact?.gender)}
+					{sectionGenerator("Company", selectedContact?.company)}
 					{sectionGenerator("Note", selectedContact?.note)}
 				</div>
 			</div>
