@@ -44,7 +44,7 @@ const ContactList = ({}) => {
 			<div className={style.contactListWrapper}>
 				<div className={style.title}>Contact List</div>
 				<SearchBox />
-				{recentContact?.length && (
+				{!!recentContact?.length && (
 					<>
 						<div className={style.sectionTitle}>recent</div>
 						<div>{renderContact(recentContact)}</div>
