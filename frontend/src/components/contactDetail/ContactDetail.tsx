@@ -8,6 +8,7 @@ import CommentIcon from "@atlaskit/icon/glyph/comment";
 import EmailIcon from "@atlaskit/icon/glyph/email";
 import HipchatDialOutIcon from "@atlaskit/icon/glyph/hipchat/dial-out";
 import { getContactById } from "../../store/contact/action";
+import Utils from "../../lib/utils";
 const ContactDetail = () => {
 	const params = useParams();
 	const dispatch = useDispatch<any>();
@@ -24,28 +25,14 @@ const ContactDetail = () => {
 		if(!selectedContact && id){
 			dispatch(getContactById(id))
 		}
-	}, [id])
-
-	function uniqueArray(array: Array<any>) {
-		const result = [];
-		const map = new Map();
-		for (const item of array) {
-			if (!map.has(item?.id) && item && Object.keys(item)?.length) {
-				map.set(item?.id, true); // set any value to Map
-				result.push({
-					...item,
-				});
-			}
-		}
-		return result;
-	}
+	}, [id]);
 
 	useEffect(() => {
 		if (id) {
 			let recentUsers: Array<any> = JSON.parse(
 				localStorage.getItem("recent") || "[]"
 			);
-			recentUsers = uniqueArray([...recentUsers, selectedContact]).slice(-4);
+			recentUsers = Utils.uniqueArray([...recentUsers, selectedContact]).slice(-4);
 			localStorage.setItem("recent", JSON.stringify([...recentUsers]));
 		}
 	}, [id]);
