@@ -6,29 +6,29 @@ import UserAvatarCircleIcon from "@atlaskit/icon/glyph/user-avatar-circle";
 import style from "./ContactList.module.scss";
 import { ContactInterface } from "../../interfaces/contact.interface";
 const ContactList = ({}) => {
-    const [query, setQuery] = useState("");
+	const [query, setQuery] = useState("");
 	const navigate = useNavigate();
-	
-    const [page, setPage] = useState(1);
-    const { loading, error, contacts } = useFetch({ query, page });
-    const loader = useRef(null);
-  
-    const handleObserver = useCallback((entries: Array<any>) => {
-      const target = entries[0];
-      if (target.isIntersecting) {
-        setPage((prev) => prev + 1);
-      }
-    }, []);
-  
-    useEffect(() => {
-      const option = {
-        root: null,
-        rootMargin: "20px",
-        threshold: 0
-      };
-      const observer = new IntersectionObserver(handleObserver, option);
-      if (loader.current) observer.observe(loader.current);
-    }, [handleObserver]);
+
+	const [page, setPage] = useState(1);
+	const { loading, error, contacts } = useFetch({ query, page });
+	const loader = useRef(null);
+
+	const handleObserver = useCallback((entries: Array<any>) => {
+		const target = entries[0];
+		if (target.isIntersecting) {
+			setPage((prev) => prev + 1);
+		}
+	}, []);
+
+	useEffect(() => {
+		const option = {
+			root: null,
+			rootMargin: "20px",
+			threshold: 0,
+		};
+		const observer = new IntersectionObserver(handleObserver, option);
+		if (loader.current) observer.observe(loader.current);
+	}, [handleObserver]);
 
 	const gotoContactDetail = (id: number) => navigate(`/${id}`);
 
@@ -51,9 +51,12 @@ const ContactList = ({}) => {
 						<UserAvatarCircleIcon label="user" size="xlarge" />
 					)}
 				</div>
-				<span>
-					{item.first_name} {item.last_name}
-				</span>
+				<div>
+					<div className={style.name}>
+						{item.first_name} {item.last_name}
+					</div>
+					<div className={style.phoneNumber}>{item.phone}</div>
+				</div>
 			</div>
 		));
 	}
@@ -61,7 +64,7 @@ const ContactList = ({}) => {
 		<div className={style.contactListContainer}>
 			<div className={style.contactListWrapper}>
 				<div className={style.title}>Contact List</div>
-				<SearchBox onChange={(q) => setQuery(q)}/>
+				<SearchBox onChange={(q) => setQuery(q)} />
 				{!!recentContact?.length && (
 					<>
 						<div className={style.sectionTitle}>recent</div>

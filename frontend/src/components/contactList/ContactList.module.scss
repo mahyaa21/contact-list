@@ -14,9 +14,15 @@
         padding: 12px 24px;
         cursor: pointer;
 
-        span {
+        .name {
             color: #4f4f4f;
             font-weight: 600;
+        }
+        
+        .phoneNumber{
+            font-size: 12px;
+            margin-top: 4px;
+            color: rgb(166, 165, 165);
         }
 
         &:hover {
