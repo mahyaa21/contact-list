@@ -1,9 +1,11 @@
 .contactListContainer {
     display: flex;
+    height: 100%;
 }
 
 .contactListWrapper {
     width: 100%;
+    overflow-y: scroll;
 
     .contact {
         display: flex;
