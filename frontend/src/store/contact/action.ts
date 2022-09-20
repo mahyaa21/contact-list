@@ -13,7 +13,7 @@ export function getAllContact(): Dispatcher {
 			dispatch({ type: CONTACT_REQUEST_INPROGRESS });
 
 			const response = await RequestInstance.get<ContactListInterface>(
-				`/passenger?limit=100&skip=0`,
+				`/passenger?limit=30&skip=0`
 			);
 
 			dispatch({
@@ -47,13 +47,13 @@ export function getContactById(id: string): Dispatcher {
 	};
 }
 
-export function searchContact(params: string): Dispatcher {
+export function searchContact(params: string, limit: number = 10): Dispatcher {
     return async (dispatch) => {
 		try {
 			dispatch({ type: CONTACT_REQUEST_INPROGRESS });
 
 			const response = await RequestInstance.get<ContactInterface>(
-				`/passenger/?where={${params}}&sort=createdAt DESC&limit=30`,
+				`/passenger/?where={${params}}&sort=createdAt DESC&limit=${limit}`,
 			);
 
 			dispatch({
