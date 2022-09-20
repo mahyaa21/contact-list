@@ -13,9 +13,10 @@ import {
 	ContactInterface,
 	ContactListInterface,
 } from "../../interfaces/contact.interface";
-import { listenerCount } from "process";
+import Utils from "../../lib/utils";
 const initialState: ReducerInitialState<{
 	list: ContactListInterface;
+	recentContact: Array<ContactInterface>;
 }> = {
 	loading: false,
 	data: {
@@ -23,6 +24,7 @@ const initialState: ReducerInitialState<{
 			meta: null,
 			items: [],
 		},
+		recentContact: []
 	},
 	error: false,
 };
@@ -41,19 +43,21 @@ export default function (
 		const list = action.payload?.data;
 		return {
 			data: {
+				...state.data,
 				list,
 			},
 			loading: false,
 			error: false,
 		};
 	} else if (action.type === SINGLE_CONTACT_FETCHED) {
-		const items = [...state.data.list.items ,action.payload?.data];
+		// const recentContact = [...state.data.recentContact, action.payload?.data];
+		const recentContact = Utils.normalizeCashedArray(state.data.recentContact, action.payload?.data, 4);
 		return {
 			data: {
 				list: {
 					...state.data.list,
-					items
 				},
+				recentContact
 			},
 			loading: false,
 			error: false,
@@ -62,6 +66,7 @@ export default function (
 		return {
 			data: {
 				list: state.data.list,
+				...state.data.recentContact
 			},
 			loading: false,
 			error: false,

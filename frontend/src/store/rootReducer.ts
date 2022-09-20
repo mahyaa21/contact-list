@@ -1,11 +1,12 @@
 import { combineReducers } from "redux";
 import contacts from "./contact/reducer";
-import { ContactListInterface } from "../interfaces/contact.interface";
+import { ContactInterface, ContactListInterface } from "../interfaces/contact.interface";
 import { ReducerInitialState } from "../interfaces/reducerInitialState.interface";
 
 export interface RootState {
 	contacts: ReducerInitialState<{
         list: ContactListInterface;
+        recentContact: Array<ContactInterface>
     }>;
 }
 
