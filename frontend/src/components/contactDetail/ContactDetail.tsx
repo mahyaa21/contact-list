@@ -64,9 +64,9 @@ const ContactDetail = () => {
 			<div className={style.email}>
 				<EmailIcon label="email" />
 			</div>
-			<div className={style.dial}>
+			<a className={style.dial} href={`tel:${selectedContact?.phone}`}>
 				<HipchatDialOutIcon label="dial" />
-			</div>
+			</a>
 		</div>
 	);
 	return (
